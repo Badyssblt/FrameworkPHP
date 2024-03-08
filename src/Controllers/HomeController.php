@@ -2,20 +2,18 @@
 
 namespace src\Controllers;
 
-use App\Controllers\BaseController;
 use App\Router\Route;
+use App\Controllers\BaseController;
+use App\ORM\Database\Database;
+use App\ORM\Database\DatabaseConfig;
+use App\ORM\Repository\AbstractRepository;
+use src\Repository\UserRepository;
 
 class HomeController extends BaseController
 {
 
-    #[Route("/home/{param}")]
+    #[Route("/home")]
     public function index()
     {
-        $data = [
-            'title' => 'Accueil',
-            'main_content' => 'Contenu principal de la page d\'accueil',
-            'footer_content' => 'Pied de page personnalisé'
-        ];
-        $this->render('index.html.twig', $data);
     }
 }
