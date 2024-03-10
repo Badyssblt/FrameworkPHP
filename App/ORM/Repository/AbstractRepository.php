@@ -10,7 +10,6 @@ use ReflectionClass;
 class AbstractRepository
 {
     protected $db;
-    private array $property;
 
     public function __construct()
     {
@@ -40,10 +39,30 @@ class AbstractRepository
         }
         $tableName = strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $tableName));
 
-        $query = $this->db->prepare($sql);
-        $query->execute();
-        $data = $query->fetchAll(PDO::FETCH_ASSOC);
-        return $data;
+        try {
+            $query = $this->db->prepare($sql);
+            $query->execute();
+            $data = $query->fetchAll(PDO::FETCH_ASSOC);
+            return $data;
+        } catch (PDOException $e) {
+            echo "Erreur: " . $e->getMessage();
+        }
+    }
+
+    public function findOne(int $id): array
+    {
+        $className = substr(basename(get_class($this)), strrpos(basename(get_class($this)), '\\') + 1);
+        $tableName = strtolower(str_replace('Repository', '', $className));
+
+        $sql = "SELECT * FROM $tableName WHERE id = :id";
+        try {
+            $query = $this->db->prepare($sql);
+            $query->execute(["id" => $id]);
+            $data = $query->fetch(PDO::FETCH_ASSOC);
+            return $data;
+        } catch (PDOException $e) {
+            echo "Erreur: " . $e->getMessage();
+        }
     }
 
     public function insert(array $arg): void

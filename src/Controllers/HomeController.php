@@ -21,6 +21,7 @@ class HomeController extends BaseController
             "email" => "test3@gmail.com",
             "password" => "test"
         ];
-        $articles = $repository->delete(1);
+        $articles = $repository->findOne(2);
+        var_dump($articles);
     }
 }
