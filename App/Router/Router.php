@@ -3,7 +3,6 @@
 namespace App\Router;
 
 use ReflectionClass;
-use ReflectionMethod;
 
 class Router
 {
@@ -23,10 +22,8 @@ class Router
                     $route = $attribute->newInstance();
                     $routePath = $route->path;
 
-                    // Replace numerical parameters in route path
                     $routePath = preg_replace('/{[0-9]+}/', '[0-9]+', $routePath);
 
-                    // Add route with parameters
                     $this->addRoute($routePath, [$className, $method->getName()]);
                 }
             }
@@ -58,7 +55,6 @@ class Router
             }
         }
 
-        // If no route matches, return a 404 error
         echo "404 Not Found";
     }
 }
