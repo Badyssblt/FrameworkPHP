@@ -4,7 +4,7 @@ namespace src\Entity;
 
 use App\ORM\Annotations\ORM;
 
-class Article 
+class Article
 {
     #[ORM(columnType: 'AI')]
     private int $id;
@@ -18,9 +18,12 @@ class Article
     #[ORM(columnType: 'string')]
     private string $slug;
 
+    #[ORM(relation: "ManyToOne", related: "User")]
+    private User $creator;
+
     /**
      * Get the value of name
-     */ 
+     */
     public function getName(): string
     {
         return $this->name;
@@ -31,7 +34,7 @@ class Article
      *
      * @param string $name
      * @return void
-     */ 
+     */
     public function setName(string $name): void
     {
         $this->name = $name;
@@ -39,7 +42,7 @@ class Article
 
     /**
      * Get the value of description
-     */ 
+     */
     public function getDescription(): string
     {
         return $this->description;
@@ -50,7 +53,7 @@ class Article
      *
      * @param string $description
      * @return void
-     */ 
+     */
     public function setDescription(string $description): void
     {
         $this->description = $description;
@@ -58,7 +61,7 @@ class Article
 
     /**
      * Get the value of slug
-     */ 
+     */
     public function getSlug(): string
     {
         return $this->slug;
@@ -69,7 +72,7 @@ class Article
      *
      * @param string $slug
      * @return void
-     */ 
+     */
     public function setSlug(string $slug): void
     {
         $this->slug = $slug;

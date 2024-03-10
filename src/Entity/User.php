@@ -1,6 +1,7 @@
 <?php
 
 namespace src\Entity;
+
 use App\ORM\Annotations\ORM;
 
 class User
@@ -16,6 +17,7 @@ class User
 
     #[ORM(columnType: 'string')]
     private string $password;
+
 
     public function __construct()
     {
